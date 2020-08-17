@@ -12,6 +12,7 @@ import {
   View,
   Text
 } from 'react-native';
+import materialTheme from '../utils/theme';
 
 
 export default function TodoItem({item}) {
@@ -29,20 +30,23 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderWidth: 0.5,
     borderRadius: 8,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: materialTheme.COLORS.WHITE,
+    backgroundColor: materialTheme.COLORS.WHITE,
     shadowOpacity: 0.90,
     shadowRadius: 8,
     elevation: 1,
-    shadowColor: 'black',
+    shadowColor: materialTheme.COLORS.BLACK,
     shadowOffset: { height: 0, width: 0 },
     paddingHorizontal: 16,
     paddingVertical: 9
   },
   todoText:{
       fontSize: 16,
-    //   textDecorationLine: 'line-through',
-    //   textDecorationStyle: 'solid'
-  }
+  },
+  completedTodoText:{
+    fontSize: 16,
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid'
+}
 });
 

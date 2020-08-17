@@ -13,6 +13,8 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
+import materialTheme from '../utils/theme';
+import scale, { verticalScale } from '../utils/scale';
 
 
 export default function Header({onAddClick}) {
@@ -28,21 +30,21 @@ export default function Header({onAddClick}) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
-    borderColor: '#000',
+    padding: scale(8),
+    borderColor: materialTheme.COLORS.BLACK,
     height: 56,
     flexDirection: 'row',
-    backgroundColor: '#3b5998',
+    backgroundColor: materialTheme.COLORS.HEADER_COLOR,
     justifyContent:'center',
     alignItems: 'center'
   },
   titleText:{
       fontSize: 18,
-      color: 'white'
+      color: materialTheme.COLORS.WHITE
   },
   addBtn:{
-    margin: 16,
-    backgroundColor: 'green',
+    margin: scale(16),
+    backgroundColor: materialTheme.COLORS.BTN_BG,
     position: 'absolute',
     right: 0,
     padding: 5,
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   btnText: {
-    color: 'white',
+    color: materialTheme.COLORS.WHITE,
     fontSize: 14
   }
 });
