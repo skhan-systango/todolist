@@ -113,7 +113,7 @@ export default function TodoList() {
       <BottomSheet
         ref={sheetRef}
         snapPoints={[verticalScale(100), 200, 0]}
-        borderRadius={20}
+        borderRadius={0}
         renderContent={renderContent}
       />
       </>
@@ -137,10 +137,12 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top'
   },
   bottomSheetContainer:{
-    backgroundColor: materialTheme.COLORS.WHITE,
+    backgroundColor: materialTheme.COLORS.POPUP_BG,
     padding: 16,
     height: verticalScale(100),
     borderRadius: 1,
+    borderColor: materialTheme.COLORS.BLACK,
+    borderWidth: 1
   },
   addBtn:{
     margin: 16,

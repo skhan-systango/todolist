@@ -4,7 +4,8 @@ export default {
     BLACK: '#000000',
     GREY: 'grey',
     BTN_BG: 'green',
-    HEADER_COLOR: '#3b5998'
+    HEADER_COLOR: '#3b5998',
+    POPUP_BG: '#ffffff'
   },
   IMAGES: {
     CHECK: require('../../assets/images/check.png'),
