@@ -22,6 +22,7 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import materialTheme from '../utils/theme';
 import scale, { verticalScale } from '../utils/scale';
+import {Keyboard} from 'react-native'
 
 
 export default function TodoList() {
@@ -30,14 +31,24 @@ export default function TodoList() {
   const [inputDescription, updateInputDescription] = useState('');
 
 
-//   useEffect(() => {
-//   }, [todoList]);
+  useEffect(() => {
+    console.log(todoList)
+  }, [todoList]);
 
   function handleAdd(text='Todo items') {
     setTodoList([ {
         description: `${todoList.length+1}. ${inputDescription}`
     },...todoList])
     updateInputDescription('')
+    Keyboard.dismiss();
+    sheetRef.current.snapTo(2)
+  }
+
+  function onTaskComplete(index) {
+    var newArray = [...todoList];
+    newArray[index]['isCompleted'] = !newArray[index]['isCompleted'];
+    console.log(newArray)
+    setTodoList(newArray)
   }
 
   const renderContent = () => (
@@ -49,6 +60,7 @@ export default function TodoList() {
       value={inputDescription}
       placeholder={'Enter task description'}
       onChangeText={(value)=>updateInputDescription(value)}
+      autoFocus={true}
     />
     <TouchableOpacity disabled={inputDescription===''} onPress={()=>handleAdd()} style={styles.addBtn}>
           <Text style={styles.btnText}>DONE</Text>
@@ -66,7 +78,7 @@ export default function TodoList() {
             contentContainerStyle={styles.listContaner}
             extraData={todoList}
             data={todoList}
-            renderItem={(item)=><TodoItem item={item.item}/>}
+            renderItem={(item)=><TodoItem index={item.index} item={item.item} onTaskComplete={(index)=>onTaskComplete(index)}/>}
             keyExtractor={item => item.id}
         />
       </View>
