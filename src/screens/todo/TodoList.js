@@ -8,22 +8,18 @@
 
 import React,{ useState, useEffect} from 'react';
 import {
-  StyleSheet,
-  StatusBar,
   View,
   FlatList,
   TouchableOpacity,
   Text,
   TextInput
 } from 'react-native';
-import TodoItem from '../components/TodoItem'
-import Header from '../components/Header'
-import Animated from 'react-native-reanimated';
+import TodoItem from '../../components/todoitem/TodoItem'
+import Header from '../../components/header/Header'
 import BottomSheet from 'reanimated-bottom-sheet';
-import materialTheme from '../utils/theme';
-import scale, { verticalScale } from '../utils/scale';
+import { verticalScale } from '../../utils/scale';
 import {Keyboard} from 'react-native'
-
+import styles from './style'
 
 export default function TodoList() {
   const sheetRef = React.useRef(null);
@@ -36,7 +32,7 @@ export default function TodoList() {
     console.log(todoList)
   }, [todoList]);
 
-  function handleAdd(text) {
+  function handleAdd() {
     if(isEdit!=-1){
       var newArray = [...todoList];
       newArray[isEdit]['description'] = inputDescription;
@@ -119,44 +115,4 @@ export default function TodoList() {
       </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  listContaner:{
-      marginHorizontal: scale(16),
-      paddingVertical: verticalScale(16)
-  },
-  inputConainer:{
-    height: 80,
-    borderColor: materialTheme.COLORS.GREY, 
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: verticalScale(10),
-    textAlignVertical: 'top'
-  },
-  bottomSheetContainer:{
-    backgroundColor: materialTheme.COLORS.POPUP_BG,
-    padding: 16,
-    height: verticalScale(100),
-    borderRadius: 1,
-    borderColor: materialTheme.COLORS.BLACK,
-    borderWidth: 1
-  },
-  addBtn:{
-    margin: 16,
-    backgroundColor: materialTheme.COLORS.BTN_BG,
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-    padding: 5,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-  },
-  btnText: {
-    color: materialTheme.COLORS.WHITE,
-    fontSize: 14
-  }
-});
 

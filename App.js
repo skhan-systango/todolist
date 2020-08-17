@@ -8,11 +8,10 @@
 
 import React from 'react';
 import {
-  StyleSheet,
   StatusBar,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import TodoList from './src/screens/TodoList'
+import TodoList from './src/screens/todo/TodoList'
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
@@ -32,9 +31,3 @@ export default function App() {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: 'red',
-  }
-});

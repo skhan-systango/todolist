@@ -13,8 +13,8 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
-import materialTheme from '../utils/theme';
-import scale, { verticalScale } from '../utils/scale';
+import materialTheme from '../../utils/theme';
+import scale from '../../utils/scale';
 
 
 export default function Header({onAddClick}) {
