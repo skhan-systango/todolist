@@ -28,6 +28,7 @@ import {Keyboard} from 'react-native'
 export default function TodoList() {
   const sheetRef = React.useRef(null);
   const [todoList, setTodoList] = useState([]);
+  const [isEdit, changeEditMode] = useState(-1);
   const [inputDescription, updateInputDescription] = useState('');
 
 
@@ -35,10 +36,16 @@ export default function TodoList() {
     console.log(todoList)
   }, [todoList]);
 
-  function handleAdd(text='Todo items') {
-    setTodoList([ {
-        description: `${todoList.length+1}. ${inputDescription}`
+  function handleAdd(text) {
+    if(isEdit!=-1){
+      var newArray = [...todoList];
+      newArray[isEdit]['description'] = inputDescription;
+      setTodoList(newArray)
+    }else{
+      setTodoList([ {
+        description: `${inputDescription}`
     },...todoList])
+    }
     updateInputDescription('')
     Keyboard.dismiss();
     sheetRef.current.snapTo(2)
@@ -50,6 +57,14 @@ export default function TodoList() {
     console.log(newArray)
     setTodoList(newArray)
   }
+
+  function onClickEdit(index, item){
+    changeEditMode(index)
+    updateInputDescription(item.description);
+    sheetRef.current.snapTo(0) 
+  }
+
+  
 
   const renderContent = () => (
     <View
@@ -73,12 +88,25 @@ export default function TodoList() {
   return (
     <>
       <View style={styles.container}>
-        <Header onAddClick={()=> {updateInputDescription(''); sheetRef.current.snapTo(0) }}/>
+        <Header onAddClick={()=> 
+          {
+            updateInputDescription('');
+            sheetRef.current.snapTo(0);
+            changeEditMode(-1)
+          }
+          }/>
         <FlatList
             contentContainerStyle={styles.listContaner}
             extraData={todoList}
             data={todoList}
-            renderItem={(item)=><TodoItem index={item.index} item={item.item} onTaskComplete={(index)=>onTaskComplete(index)}/>}
+            renderItem={(item)=>
+            <TodoItem
+              index={item.index}
+              item={item.item}
+              onTaskComplete={(index)=>onTaskComplete(index)}
+              onClickEdit={(index, item)=>onClickEdit(index, item)}
+              />
+          }
             keyExtractor={item => item.id}
         />
       </View>
@@ -101,11 +129,12 @@ const styles = StyleSheet.create({
       paddingVertical: verticalScale(16)
   },
   inputConainer:{
-    height: verticalScale(20),
+    height: 80,
     borderColor: materialTheme.COLORS.GREY, 
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: verticalScale(10)
+    marginTop: verticalScale(10),
+    textAlignVertical: 'top'
   },
   bottomSheetContainer:{
     backgroundColor: materialTheme.COLORS.WHITE,
